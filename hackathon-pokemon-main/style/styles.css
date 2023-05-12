@@ -1,0 +1,40 @@
+@charset "UTF-8";
+body {
+  margin: 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5rem;
+}
+.header__title {
+  font-size: 4rem;
+}
+.header__ball {
+  width: 5%;
+}
+.header__icon {
+  width: 15%;
+}
+
+.main {
+  background-image: url("/assests/1600px-SSBU-Pokémon_Stadium_2.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.footer {
+  display: flex;
+  justify-content: end;
+  background-color: red;
+}
+
+.reset {
+  width: 15%;
+  padding: 1.5rem 1.5rem;
+  font-size: 2rem;
+}/*# sourceMappingURL=styles.css.map */

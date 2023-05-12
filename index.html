@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js" type="text/javascript" defer></script>
     <script src="./scripts/indexpage.js" defer></script>
+    <!-- <script type="module" src="./scripts/script.js" defer></script> -->
     <title>Pokemon Battle</title>
 </head>
 <body>
@@ -20,7 +22,12 @@
         <select name="pokemonplayer2" id="pokemonplayer2">
 
         </select>
-        <button>Battle</button>
+        <button class="form__button">Battle</button>
     </form>
+    <section class="battle">
+        <article class="playerOne"></article>
+        <article class="playerTwo"></article>
+
+    </section>
 </body>
 </html>
