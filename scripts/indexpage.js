@@ -20,7 +20,7 @@ const pokeArray = []
 const url = `https://pokeapi.co/api/v2/pokemon/`;
 
 const pokemenData = (url) => {
-    for (let i = 1; i <= 15; i++){
+    for (let i = 1; i <= 151; i++){
         axios.get(`${url+i}`)
         .then(response => {
             let i = new Pokemon(response.data.name, response.data.types[0].type.name, [response.data.moves[0].move.name, response.data.moves[1].move.name, response.data.moves[2].move.name, response.data.moves[3].move.name], response.data.sprites.back_default, response.data.sprites.front_default)
@@ -72,7 +72,7 @@ const pokeCard = (object, player) => {
 
 const attakOptions = array => {
     const newArray = array.map(option => {
-        return `<button class='battle__attackbutton'>${option}<button>`
+        return `<button class='battle__attack' button'>${option}<button>`
     })
     newString = newArray.join("")
     console.log(newString)
@@ -87,7 +87,6 @@ form.addEventListener("submit", (e) => {
     pokeArray.forEach(pokemon => pokemon.name === e.target.pokemonplayer1.value ? battleSectionOne.innerHTML = pokeCard(pokemon, 1) : 'Not a real pokemon')
     pokeArray.forEach(pokemon => pokemon.name === e.target.pokemonplayer2.value ? battleSectionTwo.innerHTML = pokeCard(pokemon, 2) : 'Not a real pokemon')
 })
-    //  pokeCard(, 1).toString()
 
 
 
