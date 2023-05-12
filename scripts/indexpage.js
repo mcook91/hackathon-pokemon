@@ -6,17 +6,35 @@ class Pokemon {
         this.backpicture = backpicture;
         this.frontpicture = frontpicture;
         this.health = 100;
+        this.link = []
+    }
+
+    addPartner(opponent) {
+        this.link.push(opponent)
+    }
+
+    attack() {
+    // let player1currenthealth = this.health;
+    // let player2currenthealth = this.health;
+        // random generator for attack values
+        function randomNum(max, min){
+        // generate a random number
+
+        // min not required
+        if(min === undefined || min === '' || min === null){
+            // min default value
+            min = 0;
+        }
+
+        // random number, yay
+        return Math.floor(Math.random() * (max - min) + min);
+        };
+
+        return this.link[0].health -= randomNum(25, 10);
     }
 }
 
-
 const pokeArray = []
-// let bulbasaur = new Pokemon("bulbasaur", "grass", ["razor-wind", "swords-dance", "cut", "bind"], "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png")
-// let bulbasaurOne = new Pokemon("Charmander", "grass", ["razor-wind", "swords-dance", "cut", "bind"], "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/1.png", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png")
-// pokeArray.push(bulbasaur)
-// pokeArray.push(bulbasaurOne)
-//console.log(pokeArray[0])
-
 const url = `https://pokeapi.co/api/v2/pokemon/`;
 
 const pokemenData = (url) => {
@@ -49,45 +67,130 @@ const optionsPokemon = array => {
     return newArray
 }
 
-
-
-
 // Creating Pokemon Sections
 
 const battleSectionOne = document.querySelector('.playerOne')
 const battleSectionTwo = document.querySelector('.playerTwo')
 
-const pokeCard = (object, player) => {
+const pokeCard = (object, player, playername) => {
     return `
-        <div>
-            <img src="${player === 1 ? object.backpicture : object.frontpicture}" alt="${player === 1 ? `Back of ${object.name}` : `Front of ${object.frontpicture}`}"/>
-            <p>${object.health}/100</p>
-            <div>
-                ${attakOptions(object.attacks)}
+        <div class="pokemon">
+            <h2 class="pokemon__name">${playername}</h2>
+            <img class="pokemon__pic" src="${player === 1 ? object.backpicture : object.frontpicture}" alt="${player === 1 ? `Back of ${object.name}` : `Front of ${object.frontpicture}`}"/>
+            <p class="pokemon__health">${object.health}/100</p>
+            <div class="pokemon__attacks">
+                ${attakOptions(object.attacks, player)}
             </div>
         </div>
     `
 }
 
-
-const attakOptions = array => {
-    const newArray = array.map(option => {
-        return `<button class='battle__attack' button'>${option}<button>`
-    })
+const attakOptions = (array, player) => {
+    const newArray = []
+    array.forEach(option => {
+        newArray.push(`<button class='battle__attack battle__attack--${player}' button'>${option}</button>`)
+})
     newString = newArray.join("")
-    console.log(newString)
     return newString
 }
 
 const form = document.querySelector('form')
 
+let playerOnePokemone;
+let playerTwoPokemone;
+
+let player1name;
+let player2name;
+
 form.addEventListener("submit", (e) => { 
     e.preventDefault()
     console.log(e.target.pokemonplayer1.value)
-    pokeArray.forEach(pokemon => pokemon.name === e.target.pokemonplayer1.value ? battleSectionOne.innerHTML = pokeCard(pokemon, 1) : 'Not a real pokemon')
-    pokeArray.forEach(pokemon => pokemon.name === e.target.pokemonplayer2.value ? battleSectionTwo.innerHTML = pokeCard(pokemon, 2) : 'Not a real pokemon')
+    pokeArray.forEach(pokemon => { 
+        if (pokemon.name === e.target.pokemonplayer1.value) {
+            player1name = e.target.player1.value
+            battleSectionOne.innerHTML = pokeCard(pokemon, 1, player1name)
+            playerOnePokemone = pokemon
+        } else {'Not a real pokemon'}})
+    pokeArray.forEach(pokemon => { 
+        if (pokemon.name === e.target.pokemonplayer2.value) {
+            player2name = e.target.player2.value
+            battleSectionTwo.innerHTML = pokeCard(pokemon, 2, player2name)
+            playerTwoPokemone = pokemon
+        } else {'Not a real pokemon'}})
+    playerOnePokemone.addPartner(playerTwoPokemone)
+    playerTwoPokemone.addPartner(playerOnePokemone)
+    console.log(playerOnePokemone.link)
+    
 })
 
 
+// attack stuff
 
+const battleSection = document.querySelector(".battle");
+const footerSection = document.querySelector(".attackimage");
 
+battleSection.addEventListener("click", (event) => {
+    const targetElement = event.target;
+    console.log(targetElement)
+    if (targetElement.matches('.battle__attack--1')) {
+        playerOnePokemone.attack()
+        console.log(playerTwoPokemone.health)
+        const apiKey = 'SKpc-ZxlFfkJZD-D66E0ULsLY5FQrUNW7y6R5Mo0tTQ';
+        const urlSplash = `https://api.unsplash.com/photos/random?client_id=${apiKey}&query=`;
+        axios.get(urlSplash+playerOnePokemone.type)
+        .then(response => {
+            footerSection.innerHTML = `
+                <div>
+                    <img src=${response.data.urls.raw} alt='' height=200 width=200/>
+                </div>
+                `;
+            console.log(battleSectionOne)
+            console.log(battleSectionOne.innerHTML)
+            setTimeout(() => {
+                footerSection.innerHTML = ''
+                battleSectionTwo.innerHTML = pokeCard(playerTwoPokemone, 2, player2name)
+            }, 3000)
+        })
+        .catch(error => {
+          console.error(error);
+        });
+        if (playerTwoPokemone.health <= 0) {
+            window.alert('Player 1 Wins!!!')
+        }
+    }
+    if (targetElement.matches('.battle__attack--2')) {
+        playerTwoPokemone.attack()
+        console.log(playerOnePokemone.health)
+        const apiKey = 'SKpc-ZxlFfkJZD-D66E0ULsLY5FQrUNW7y6R5Mo0tTQ';
+        const urlSplash = `https://api.unsplash.com/photos/random?client_id=${apiKey}&query=`;
+        
+        axios.get(urlSplash+playerTwoPokemone.type)
+        .then(response => {
+            footerSection.innerHTML = `
+                <div>
+                    <img src=${response.data.urls.raw} alt='' height=200 width=200/>
+                </div>
+                `;
+            console.log(battleSectionOne)
+            console.log(battleSectionOne.innerHTML)
+            setTimeout(() => {
+                footerSection.innerHTML = ''
+                battleSectionOne.innerHTML = pokeCard(playerOnePokemone, 1, player1name)
+            }, 3000)
+        })
+        .catch(error => {
+          console.error(error);
+        });
+        if (playerOnePokemone.health <= 0) {
+            window.alert('Player 2 Wins!!!')
+        }
+    }})
+
+    
+
+// RESET button
+const resetBtn = document.querySelector(".reset");
+
+resetBtn.addEventListener('click', () => {
+    location.reload();
+});

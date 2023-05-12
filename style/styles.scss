@@ -1,0 +1,114 @@
+body {
+    margin: 0;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem 5rem;
+    &__title {
+        font-size: 3rem;
+        width: 15%;
+        margin: 0;
+    }
+    &__ball {
+        width: 5%;
+    }
+    &__icon {
+        width: 15%
+    }
+}
+
+.main {
+    background-image: url('../assests/chrysope-battle-background-new.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+.form{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    &__button {
+        padding: 1rem;
+        font-size: 3rem;
+    }
+    &__div {
+        display:flex;
+        flex-direction: column;
+    }
+}
+
+.player {
+    color: white;
+    font-size: 1rem;
+    &__sel {
+        color: white;
+        font-size: 1rem
+    }
+    &__box {
+        padding: .5rem;
+    }
+    &__pokemon {
+        padding: .5rem;
+    }
+}
+
+.battle{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 80vh;
+    &__attack {
+        border-radius: 4rem;
+        background-color: black;
+        color: white;
+        font-size: 1.5rem;
+    }
+    &__attack:hover {
+        background-color: red;
+    }
+}
+.playerOne {
+    align-self: flex-end;
+}
+.pokemon {
+    width: 100%;
+    &__pic {
+        width: 100%;
+    }
+    &__health {
+        color: white;
+        font-size: 3rem;
+        margin: 0;
+    }
+    &__attacks {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1ft);
+        grid-gap: 10px;
+    }
+    &__name {
+        color: white;
+        font-size: 1.5rem;
+    }
+}
+
+
+.footer {
+    display: flex;
+    justify-content: end;
+    background-color: red;
+}
+
+.reset {
+    width: 15%;
+    padding: 1.5rem 1.5rem;
+    font-size: 2rem;
+}
+
+.attackimage {
+    position: relative;
+    z-index: 99;
+}

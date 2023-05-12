@@ -6,28 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js" type="text/javascript" defer></script>
     <script src="./scripts/indexpage.js" defer></script>
+    <link rel="stylesheet" href="./style/styles.css"/>
     <!-- <script type="module" src="./scripts/script.js" defer></script> -->
     <title>Pokemon Battle</title>
 </head>
 <body>
-    <form>
-        <label for="player1">Player 1 Name:</label>
-        <input type="text" name="player1" id="player1"/>
-        <label for="pokemonplayer1">Select your Pokemon</label>
-        <select name="pokemonplayer1" id="pokemonplayer1">
+    <header class="header">
+        <h1 class="header__title">Battle Time</h1>
+        <img class="header__ball" src="./assests/pokeball.png" alt="pokeball">
+        <img class="header__icon" src="./assests/pokemon icons.jpg" alt="pokemon">
+</header>
+<main class="main">
+    <form class="form">
+    <div class="form__div">
+        <label class="player" for="player1">Player 1 Name:</label>
+        <input class="player__box" type="text" name="player1" id="player1"/>
+        <label class="player__sel" for="pokemonplayer1">Select your Pokemon:</label>
+        <select class="player__pokemon" name="pokemonplayer1" id="pokemonplayer1">
             
         </select>
-        <label for="player2">Player 2 Name:</label>
-        <input type="text" name="player2" id="player2"/>
-        <select name="pokemonplayer2" id="pokemonplayer2">
+    </div>
+    <div>
+        <button class="form__button">BATTLE</button>
+    </div>
+    <div class="form__div">
+        <label class="player" for="player2">Player 2 Name:</label>
+        <input class="player__box" type="text" name="player2" id="player2"/>
+        <label class="player__sel" for="pokemonplayer2">Select your Pokemon:</label>
+        <select class="player__pokemon" name="pokemonplayer2" id="pokemonplayer2">
 
         </select>
-        <button class="form__button">Battle</button>
+    </div>
     </form>
-    <section class="battle">
-        <article class="playerOne"></article>
-        <article class="playerTwo"></article>
-
-    </section>
+        <section class="battle">
+            <article class="playerOne"></article>
+            <section class="attackimage"></section>
+            <article class="playerTwo"></article>
+        </section>
+</main> 
+    <footer class="footer">
+        <button class="reset">Reset</button>
+    </footer>
 </body>
 </html>
